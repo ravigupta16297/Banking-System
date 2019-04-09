@@ -1,0 +1,30 @@
+<?php
+session_start();
+$name=$_POST["username"];
+$pass=$_POST["password"];
+?>
+<?php
+$con=mysqli_connect('localhost','root','');
+mysqli_select_db($con,'bank');
+$que="select * from account where name='$name' && password='$pass'";
+$res=mysqli_query($con,$que);
+$num=mysqli_num_rows($res);
+if($num==1)
+{
+header('location:http://localhost/Bank/authentic1.php');
+}
+else
+{
+header('location:http://localhost/Bank/index.php');
+}
+?>
+<?php
+$con=mysqli_connect('localhost','root','');
+mysqli_select_db($con,'bank');
+$que="select 'name' from account";
+$res=mysqli_query($con,$que);
+while($row=mysqli_fetch_assoc($res))
+ {
+$_SESSION['info']=$row;
+}
+?>
